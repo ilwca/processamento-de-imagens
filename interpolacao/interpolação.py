@@ -131,13 +131,11 @@ def interpolacao_bilinear(matriz, nova_altura, nova_largura):
             dy = origem_y - y1
             dx = origem_x - x1
 
-            # Valores dos 4 pixels
             Q11 = matriz[y1, x1]
             Q21 = matriz[y1, x2]
             Q12 = matriz[y2, x1]
             Q22 = matriz[y2, x2]
 
-            # Interpolação bilinear
             valor = (
                 Q11 * (1 - dx) * (1 - dy) +
                 Q21 * dx * (1 - dy) +

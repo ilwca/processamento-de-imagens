@@ -4,7 +4,7 @@ Repositorio de implementacao de trabalhos da Disciplina de Processamento de Imag
 Universidade Federal do Tocantins **UFT**
 ## Alunos
 - Lucas Farias
-- Heloisa Rolins
+- [Heloisa Rolins](https://github.com/h-rolins)
 
 ---
 # Como executar
