@@ -10,7 +10,6 @@ if os.environ.get("DISPLAY", "") == "" and os.environ.get("WAYLAND_DISPLAY", "")
     import matplotlib
     matplotlib.use("Agg")
 
-
 def soma(img1, img2):
     matriz1 = np.array(img1, dtype=np.int16)
     matriz2 = np.array(img2, dtype=np.int16)
