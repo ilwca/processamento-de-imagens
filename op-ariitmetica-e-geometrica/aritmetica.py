@@ -29,8 +29,8 @@ def subtracao(img1, img2):
 
     return resultado
 
-img1 = Image.open("Op. Aritmetica e Geometrica/img/flor01.jpg").convert("L")
-img2 = Image.open("Op. Aritmetica e Geometrica/img/flor02.jpg").convert("L")
+img1 = Image.open("op-ariitmetica-e-geometrica/img/flor01.jpg").convert("L")
+img2 = Image.open("op-ariitmetica-e-geometrica/img/flor02.jpg").convert("L")
 
 matriz = np.array(img1)
 matriz = np.array(img2)
@@ -62,7 +62,7 @@ plt.axis("off")
 
 
 plt.tight_layout()
-plt.savefig("Op. Aritmetica e Geometrica/output/aritmetica.png", dpi=300)
+plt.savefig("op-ariitmetica-e-geometrica/output/aritmetica.png", dpi=300)
 
 if plt.get_backend().lower() != "agg":
     plt.show()

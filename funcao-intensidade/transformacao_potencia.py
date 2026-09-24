@@ -21,7 +21,7 @@ def transformacao_potencia(imagem, gamma, c=1):
     return Image.fromarray(s.astype(np.uint8))
 
 
-imagem = Image.open('Funcao_Intensidade/img/cidade.jpg').convert("L")
+imagem = Image.open('funcao-intensidade/img/cidade.jpg').convert("L")
 
 gamma = 1.5
 
@@ -40,11 +40,10 @@ plt.title(f"Transformação de potência - γ = {gamma}")
 plt.axis("off")
 
 plt.savefig(
-    "Funcao_Intensidade/output/comparacao.png",
+    "funcao-intensidade/output/comparacao.png",
     dpi=300,
     bbox_inches="tight"
 )
 
 plt.close()
 
-print("Imagem transformada: Funcao_Intensidade/output/trans_pot.png")

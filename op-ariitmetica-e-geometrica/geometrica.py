@@ -24,7 +24,7 @@ def rotacao(img1):
     return resultado
 
 
-img1 = Image.open("Op. Aritmetica e Geometrica/img/desenho1.jpg").convert("L")
+img1 = Image.open("op-ariitmetica-e-geometrica/img/desenho1.jpg").convert("L")
 
 matriz = np.array(img1)
 
@@ -44,7 +44,7 @@ plt.axis("off")
 
 
 plt.tight_layout()
-plt.savefig("Op. Aritmetica e Geometrica/output/geometrica.png", dpi=300)
+plt.savefig("op-ariitmetica-e-geometrica/output/geometrica.png", dpi=300)
 
 if plt.get_backend().lower() != "agg":
     plt.show()
