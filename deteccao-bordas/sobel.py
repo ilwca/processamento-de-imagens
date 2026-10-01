@@ -22,19 +22,31 @@ MASCARA_GY = np.array([
 ])
 
 
+def limitar(valor, minimo, maximo):
+    # Mantém o valor dentro do intervalo [minimo, maximo]
+    return max(minimo, min(valor, maximo))
+
+
 def expandir_borda(imagem, raio):
+    # Cria uma moldura de "raio" pixels ao redor da imagem,
+    # repetindo o pixel de borda mais próximo
     altura, largura = imagem.shape
-    imagem_expandida = np.zeros((altura + 2 * raio, largura + 2 * raio), dtype=np.float64)
-    imagem_expandida[raio:raio + altura, raio:raio + largura] = imagem
+    nova_altura = altura + 2 * raio
+    nova_largura = largura + 2 * raio
 
-    # Replicação dos pixels de borda
-    for i in range(raio):
-        imagem_expandida[i, raio:raio + largura] = imagem[0, :]
-        imagem_expandida[raio + altura + i, raio:raio + largura] = imagem[-1, :]
+    imagem_expandida = np.zeros((nova_altura, nova_largura), dtype=np.float64)
 
-    for j in range(raio):
-        imagem_expandida[:, j] = imagem_expandida[:, raio]
-        imagem_expandida[:, raio + largura + j] = imagem_expandida[:, raio + largura - 1]
+    for i in range(nova_altura):
+        for j in range(nova_largura):
+            # Posição correspondente na imagem original
+            linha_original = i - raio
+            coluna_original = j - raio
+
+            # Se a posição cair fora da imagem, usa a borda mais próxima
+            linha_original = limitar(linha_original, 0, altura - 1)
+            coluna_original = limitar(coluna_original, 0, largura - 1)
+
+            imagem_expandida[i, j] = imagem[linha_original, coluna_original]
 
     return imagem_expandida
 
