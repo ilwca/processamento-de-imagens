@@ -2,6 +2,7 @@ import os
 import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image
+from scipy.ndimage import gaussian_filter1d
 
 if (os.environ.get("DISPLAY", "") == "" and os.environ.get("WAYLAND_DISPLAY", "") == ""):
     import matplotlib
@@ -16,15 +17,8 @@ def montar_histograma(imagem):
             histograma[pixel] += 1
     return histograma
 
-def suavizar_histograma(histograma, sigma=5):
-    raio = int(3 * sigma)
-    x = np.arange(-raio, raio + 1)
-    kernel = np.exp(-(x**2) / (2 * sigma**2))
-    kernel = kernel / np.sum(kernel)
-    return np.convolve(histograma, kernel, mode="same")
-
-def encontrar_limiar_vale(histograma, sigma=10):
-    h_suave = suavizar_histograma(histograma, sigma=sigma)
+def encontrar_limiar_vale(histograma, sigma):
+    h_suave = gaussian_filter1d(histograma.astype(float), sigma=sigma)
 
     pico_escuro = int(np.argmax(h_suave[:100]))
     pico_claro = int(100 + np.argmax(h_suave[100:]))
@@ -40,15 +34,15 @@ def aplicar_limiarizacao(imagem, limiar):
     return Image.fromarray(imagem_binarizada)
 
 
-caminho_entrada = "processamento-de-imagens/segmentacao/img/imagem4.jpg"
-pasta_saida = "processamento-de-imagens/segmentacao/output"
+caminho_entrada = "segmentacao/img/imagem4.jpg"
+pasta_saida = "segmentacao/output"
 os.makedirs(pasta_saida, exist_ok=True)
 
 imagem = Image.open(caminho_entrada).convert("L")
 img_array = np.array(imagem)
 
 hist_original = montar_histograma(img_array)
-limiar, p_esq, p_dir, hist_suave = encontrar_limiar_vale(hist_original, sigma=10)
+limiar, p_esq, p_dir, hist_suave = encontrar_limiar_vale(hist_original,10)
 
 imagem_segmentada = aplicar_limiarizacao(imagem, limiar)
 
@@ -70,9 +64,7 @@ plt.bar(
     width=1,
     label="Histograma bruto",
 )
-plt.plot(
-    range(NIVEIS), hist_suave, color="blue", linewidth=1.5, label="Suavizado"
-)
+plt.plot(range(NIVEIS), hist_suave, color="blue", linewidth=1.5, label="Suavizado")
 plt.scatter(
     [p_esq, p_dir],
     [hist_suave[p_esq], hist_suave[p_dir]],
